@@ -1,5 +1,1 @@
-# test-repo
-
-Why the hell are you here?
-
-GOKU!?!?!?!?!?!?!?!?!
+# Katt's Kinda Modjam Server Repo
