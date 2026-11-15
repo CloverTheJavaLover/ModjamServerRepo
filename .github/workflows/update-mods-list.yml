@@ -1,0 +1,37 @@
+name: Auto-Generate Mods List
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'mods/**' # Only trigger if files inside mods/ actually change
+
+permissions:
+    contents: write
+
+jobs:
+    generate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Generate mods.txt
+              run: |
+                # Check if the mods directory exists
+                if [ -d "mods" ]; then
+                    cd mods
+                    ls -1 *.jar > ../mods.txt
+                    cd ..
+                else
+                    touch mods.txt
+                fi
+
+            - name: Commit and push if mods.txt changed
+              run: |
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                git add mods.txt
+                # Only commit if there is an actual diff to avoid infinite loop triggers
+                git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update mods.txt [skip ci]" && git push)
