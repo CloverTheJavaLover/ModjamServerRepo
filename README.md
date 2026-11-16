@@ -1,1 +1,2 @@
 # Katt's Kinda Modjam Server Repo
+THE MODPACK UPDATER CAN UPDATE ITSELF HOLY COW
